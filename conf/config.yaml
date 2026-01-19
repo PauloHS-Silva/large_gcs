@@ -1,0 +1,12 @@
+defaults:
+  - contact_params: cg_simple_4_True_0.yaml
+  - _self_
+
+hydra:
+  run:
+    dir: ${dropbox_gcs_examples_path:}/${problem_relative_folder}
+
+problem_relative_folder: shao_large_gcs/outputs/${contact_params.graph_name}_${contact_params.use_l1_cost}_${contact_params.seed}
+solve_contact: true
+force_remake: false
+num_trials: 10
