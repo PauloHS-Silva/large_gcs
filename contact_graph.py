@@ -1,4 +1,4 @@
-"""Contact graph GCS extractor (from shaoyuancc/large_gcs repository)."""
+"""Contact graph GCS extractor (extracted and modified from shaoyuancc/large_gcs repository)."""
 
 from __future__ import annotations
 
@@ -37,6 +37,7 @@ def make_contact_gcs(
         drake_source: Source vertex from Drake GCS
         drake_target: Target vertex from Drake GCS
         env_info: Dictionary with environment information
+        contact_graph: The loaded ContactGraph object
     """
     # Set PROJECT_ROOT environment variable for graph loading
     if "PROJECT_ROOT" not in os.environ:
@@ -69,4 +70,4 @@ def make_contact_gcs(
         'use_l1_cost': use_l1_cost,
     }
     
-    return drake_gcs, drake_source, drake_target, env_info
+    return drake_gcs, drake_source, drake_target, env_info, contact_graph

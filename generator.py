@@ -4,6 +4,7 @@ import sys
 from pathlib import Path
 
 import hydra
+import matplotlib.pyplot as plt
 from hydra.core.hydra_config import HydraConfig
 from omegaconf import DictConfig, OmegaConf
 
@@ -38,10 +39,16 @@ def main(cfg: DictConfig) -> None:
     from contact_graph import make_contact_gcs
 
     try:
-        drake_gcs, drake_source, drake_target, env_info = make_contact_gcs(
+        drake_gcs, drake_source, drake_target, env_info, contact_graph = make_contact_gcs(
             graph_name=params.graph_name,
             use_l1_cost=params.use_l1_cost,
         )
+
+        # Plot contact graph and save
+        contact_graph.plot(label_vertices_faces=False)
+        fig = plt.gcf()
+        fig.savefig(output_dir / "contact_graph.png", dpi=150, bbox_inches='tight')
+        plt.close(fig)
 
         # Use run_generators.run_drake to solve and save
         run_generators.run_drake(
